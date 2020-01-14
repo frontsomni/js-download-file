@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JS 文件下载</title>
+</head>
+<body>
+  <img id="img" src="./qr.png" alt="">
+  <p>
+    <a href="./weui.min.css" download>下载静态内容</a>
+  </p>
+  <p>
+    <a id="blob" download onclick="downloadByBlob()"> Blob 方式下载</a>
+  </p>
+  <p>
+    <a id="canvas" download onclick="downloadByCanvas()">canvas 方式下载图片</a>
+  </p>
+  <p>
+    <a href="./api/download?name=weui.min" download>后端接口下载</a>
+  </p>
+
+  <script>
+    function downloadByBlob() {
+      let aBlob = document.getElementById('blob')
+      let blob = new Blob(['blob 数据'])
+      let blobUrl = URL.createObjectURL(blob)
+      aBlob.setAttribute('href', blobUrl)
+    }
+
+    function downloadByCanvas() {
+      let imgEle = document.getElementById('img')
+      let aCanvas = document.getElementById('canvas')
+      let canvas = document.createElement('canvas')
+      let ctx = canvas.getContext('2d')
+      ctx.drawImage(imgEle, 0, 0)
+      let downloadUrl = canvas.toDataURL()
+      aCanvas.setAttribute('href', downloadUrl)
+    }
+  </script>
+</body>
+</html>
